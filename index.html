@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="google-signin-client_id" content="968006266020-e12dock146hoog9nhq503m9801ppuedc.apps.googleusercontent.com">
+    <title></title>
+  </head>
+  <body>
+    
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <h1>You've sent </h1> <h1 id="counter">0</h1> <h1>emails today</h1>
+    <button type="button" class="button" name="button">Press me Daddy</button>
+
+  </body>
+</html>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script>
+
+  const counter = document.getElementById("counter");
+  let ranNum = Math.floor( Math.random () * 10);
+  const update = document.querySelector("button");
+
+  function updateNum() {
+    counter.innerHTML =
+      `  ${ranNum}  `
+  }
+
+  update.addEventListener('click', updateNum);
+
+</script>
