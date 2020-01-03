@@ -38,12 +38,16 @@
 }
 
 //GET https://www.googleapis.com/gmail/v1/users/`${id}`/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4 HTTP/1.1
-  var request = new XMLHttpRequest();
-  request.open('GET', https://www.googleapis.com/gmail/v1/users/`${id}`/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4 HTTP/1.1, true)
-  request.onload = function() {
-    var data = JSON.parse(this.response)
-    console.log(data);
+  var url = https://www.googleapis.com/gmail/v1/users/;
+  var params = /messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4;
+  var http = new XMLHttpRequest();
+
+  http.open("GET", url + id + params, true) {
+    if(http.readyState == 4 && http.status == 200) {
+        alert(http.responseText);
+    }
   }
+  http.send(null);
 
   update.addEventListener('click', updateNum);
 
