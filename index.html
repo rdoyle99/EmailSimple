@@ -17,7 +17,6 @@
   </body>
 </html>
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
 <script>
 
   const counter = document.getElementById("counter");
@@ -110,7 +109,7 @@
   }
 
 
-  function updateNum() {
+ function updateNum() {
     var url = ('https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4');
     var http = new XMLHttpRequest();
     http.open("GET", url, true);
@@ -125,12 +124,7 @@
   }
 
 
-  function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-      id = profile.getId(); // this is where I get the id. trying to pass it through below to the rq. then need to parse that response
-}}}
 
-//  update.addEventListener('click', updateNum);
 
 
 </script>
