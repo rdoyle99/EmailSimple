@@ -25,93 +25,16 @@
 
   const counter = document.getElementById("counter");
   const update = document.querySelector("button");
-  var id;
-  var toke;
-
-
-  var GoogleAuth;
   var SCOPE = 'https://www.googleapis.com/auth/gmail.readonly';
 
-  function handleClientLoad() {// Load the API's client and auth2 modules.// Call the initClient function after the modules load.
-    gapi.load('client:auth2', initClient);
-    console.log('client load handled, initializing client!');
+
+  gapi.client.init({
+    'apiKey': 'AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4',
+    'discoveryDocs': 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
+    'clientId': '968006266020-e12dock146hoog9nhq503m9801ppuedc.apps.googleusercontent.com',
+
+    var url = ('https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4');
   }
-
-  function initClient() {
-    var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
-    console.log('client initialized!');
-    gapi.client.init({
-        'apiKey': 'AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4',
-        'discoveryDocs': 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
-        'clientId': '968006266020-e12dock146hoog9nhq503m9801ppuedc.apps.googleusercontent.com',
-        'scope': 'https://www.googleapis.com/auth/gmail.readonly'
-    }).then(function () {
-      GoogleAuth = gapi.auth2.getAuthInstance();
-      console.log('auth instance retrieved!');
-
-      // Listen for sign-in state changes.
-      GoogleAuth.isSignedIn.listen(updateSigninStatus);
-
-      function updateSigninStatus() {
-        console.log('sign in status updated!');
-      }
-
-      // Handle initial sign-in state. (Determine if user is already signed in.)
-      var user = GoogleAuth.currentUser.get();
-      setSigninStatus();
-
-      // Call handleAuthClick function when user clicks on
-      //      "Sign In/Authorize" button.
-      $('#sign-in-or-out-button').click(function() {
-        handleAuthClick();
-        console.log('auth click going to run!');
-      });
-      $('#revoke-access-button').click(function() {
-        revokeAccess();
-      });
-    });
-  }
-
-  function handleAuthClick() {
-    if (GoogleAuth.isSignedIn.get()) {
-      console.log('handled, signed in!');
-      GoogleAuth.signOut();
-    } else {
-      // User is not signed in. Start Google auth flow.
-      GoogleAuth.signIn();
-    }
-  }
-
-  function revokeAccess() {
-    GoogleAuth.disconnect();
-  }
-
-  function setSigninStatus(isSignedIn) {
-    console.log('good to go, api rq should be next!');
-    var user = GoogleAuth.currentUser.get();
-    var isAuthorized = user.hasGrantedScopes(SCOPE);
-    if (isAuthorized) {
-      var url = ('https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4');
-      var http = new XMLHttpRequest();
-      http.open("GET", url, true);
-      http.onreadystatechange = function(){
-        if(http.readyState == 4 && http.status == 200) {
-            var json = JSON.parse(http.responseText);
-            counter.innerHTML =
-              `  ${json.resultSizeEstimate}  `
-    } else {
-      $('#sign-in-or-out-button').html('Sign In/Authorize');
-      $('#revoke-access-button').css('display', 'none');
-      $('#auth-status').html('You have not authorized this app or you are ' +
-          'signed out.');
-    }
-  }
-
-  function updateSigninStatus(isSignedIn) {
-    setSigninStatus();
-    console.log('update sign in status is running!');
-  }
-
 
  function updateNum() {
     var url = ('https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4');
@@ -125,16 +48,6 @@
       }
     }
       http.send(null);
-  }}
+  }
 
-</script>
-
-<script
-  src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
-</script>
-
-<script
-  async defer src="https://apis.google.com/js/api.js"
-  onload="this.onload=function(){};handleClientLoad()"
-  onreadystatechange="if (this.readyState === 'complete') this.onload()">
 </script>
