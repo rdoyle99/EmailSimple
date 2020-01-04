@@ -26,11 +26,13 @@
 
   function updateNum() {
     var url = 'https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4&access_token=ya29.Il-4BzyCswxPPlujcXMgmAXbPdpVBFgE-ULWyXEiAdF_gwCoh3erV3JZKFAV-3DRsbDq-JFdPM0-BZezsOzDAJN959S_v58ko3jli2wGgERRFoXRXHX8VdD4MuLQaaSYUw HTTP/1.1';
-    var http = new XMLHttpRequest(); 
+    var http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.onreadystatechange = function(){
       if(http.readyState == 4 && http.status == 200) {
           console.log(http.responseText);
+          var json = JSON.parse(http.responseText);
+          alert(json.resultSizeEstimate);
       }
     }
     http.send(null);
