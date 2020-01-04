@@ -32,12 +32,12 @@
       if(http.readyState == 4 && http.status == 200) {
           console.log(http.responseText);
           var json = JSON.parse(http.responseText);
-          alert(json.resultSizeEstimate);
+    
       }
     }
     http.send(null);
     counter.innerHTML =
-      `  ${id}  `
+      `  ${json.resultSizeEstimate}  `
   }
 
   function onSignIn(googleUser) {
