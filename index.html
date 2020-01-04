@@ -19,29 +19,20 @@
 <script>
 
   const counter = document.getElementById("counter");
-  let ranNum = Math.floor( Math.random () * 10);
   const update = document.querySelector("button");
   var id;
   var toke;
 
 
-  function updateNum() {
   var GoogleAuth;
-  var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
-  function handleClientLoad() {
-    // Load the API's client and auth2 modules.
-    // Call the initClient function after the modules load.
+  var SCOPE = 'https://www.googleapis.com/auth/gmail.readonly';
+
+  function handleClientLoad() {// Load the API's client and auth2 modules.// Call the initClient function after the modules load.
     gapi.load('client:auth2', initClient);
   }
 
   function initClient() {
-    // Retrieve the discovery document for version 3 of Google Drive API.
-    // In practice, your app can retrieve one or more discovery documents.
     var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
-
-    // Initialize the gapi.client object, which app uses to make API requests.
-    // Get API key and client ID from API Console.
-    // 'scope' field specifies space-delimited list of access scopes.
     gapi.client.init({
         'apiKey': 'AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4',
         'discoveryDocs': 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
@@ -86,10 +77,14 @@
     var user = GoogleAuth.currentUser.get();
     var isAuthorized = user.hasGrantedScopes(SCOPE);
     if (isAuthorized) {
-      $('#sign-in-or-out-button').html('Sign out');
-      $('#revoke-access-button').css('display', 'inline-block');
-      $('#auth-status').html('You are currently signed in and have granted ' +
-          'access to this app.');
+      var url = ('https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4');
+      var http = new XMLHttpRequest();
+      http.open("GET", url, true);
+      http.onreadystatechange = function(){
+        if(http.readyState == 4 && http.status == 200) {
+            var json = JSON.parse(http.responseText);
+            counter.innerHTML =
+              `  ${json.resultSizeEstimate}  `
     } else {
       $('#sign-in-or-out-button').html('Sign In/Authorize');
       $('#revoke-access-button').css('display', 'none');
@@ -103,21 +98,16 @@
   }
 
 
-<button id="sign-in-or-out-button"
-        style="margin-left: 25px">Sign In/Authorize</button>
-<button id="revoke-access-button"
-        style="display: none; margin-left: 25px">Revoke access</button>
-
-<div id="auth-status" style="display: inline; padding-left: 25px"></div><hr>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script async defer src="https://apis.google.com/js/api.js"
         onload="this.onload=function(){};handleClientLoad()"
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
 </script>
 
-    var access = ' '
-    var url = ('https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4&access_token=ya29.Il-4BzyCswxPPlujcXMgmAXbPdpVBFgE-ULWyXEiAdF_gwCoh3erV3JZKFAV-3DRsbDq-JFdPM0-BZezsOzDAJN959S_v58ko3jli2wGgERRFoXRXHX8VdD4MuLQaaSYUw HTTP/1.1');
+
+    http.send(null);
+  function updateNum() {
+    var url = ('https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4');
     var http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.onreadystatechange = function(){
@@ -127,8 +117,6 @@
             `  ${json.resultSizeEstimate}  `
       }
     }
-    http.send(null);
-
   }
 
   function onSignIn(googleUser) {
