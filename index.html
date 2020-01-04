@@ -42,7 +42,9 @@
   var params = '/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4';
   var http = new XMLHttpRequest();
 
-  http.open("GET", url + id + params, true) {
+  http.open("GET", url + id + params, true)
+  http.onreadystatechange = function()
+  {
     if(http.readyState == 4 && http.status == 200) {
         alert(http.responseText);
     }
