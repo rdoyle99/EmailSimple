@@ -31,7 +31,7 @@
     http.open("GET", url, true);
     http.onreadystatechange = function(){
       if(http.readyState == 4 && http.status == 200) {
-          console.log(http.responseText.resultSizeEstimate);
+          console.log(http.response);
       }
     }
     http.send(null);
