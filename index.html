@@ -29,7 +29,7 @@
     var http = new XMLHttpRequest();
 
     http.open("GET", url, true);
-  //  http.setRequestHeader(Authorization: Bearer [YOUR_ACCESS_TOKEN])
+    http.setRequestHeader(Authorization: Bearer [YOUR_ACCESS_TOKEN])
     http.onreadystatechange = function()
     {
       if(http.readyState == 4 && http.status == 200) {
@@ -43,17 +43,14 @@
 
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
+      console.log(googleUser);
+      console.log(googleUser.getBasicProfile());
       console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
       console.log('Name: ' + profile.getName());
       console.log('Image URL: ' + profile.getImageUrl());
       console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       id = profile.getId(); // this is where I get the id. trying to pass it through below to the rq. then need to parse that response
 }
-
-console.log(id + "it's here...")
-
-//GET https://www.googleapis.com/gmail/v1/users/`${id}`/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4 HTTP/1.1
-
 
   update.addEventListener('click', updateNum);
 
