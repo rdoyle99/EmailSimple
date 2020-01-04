@@ -25,7 +25,23 @@
   var toke;
 
   function updateNum() {
-    var url = 'https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4&access_token=ya29.Il-4BzyCswxPPlujcXMgmAXbPdpVBFgE-ULWyXEiAdF_gwCoh3erV3JZKFAV-3DRsbDq-JFdPM0-BZezsOzDAJN959S_v58ko3jli2wGgERRFoXRXHX8VdD4MuLQaaSYUw HTTP/1.1';
+    var GoogleAuth; // Google Auth object.
+    function initClient() {
+      gapi.client.init({
+          'apiKey': 'AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4',
+          'clientId': '968006266020-e12dock146hoog9nhq503m9801ppuedc.apps.googleusercontent.com',
+          'scope': 'https://www.googleapis.com/auth/gmail.readonly	',
+          'discoveryDocs': ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
+      }).then(function () {
+          GoogleAuth = gapi.auth2.getAuthInstance();
+
+          // Listen for sign-in state changes.
+          GoogleAuth.isSignedIn.listen(updateSigninStatus); //TODo this is yet to make anything happen
+      });
+    }
+
+    var access = ' '
+    var url = ('https://www.googleapis.com/gmail/v1/users/me/messages?q=newer_than%3A1d%20in%3Asent&key=AIzaSyDMr6Sq3G47sgwZuXNnnQ2vEol1WMy5HY4&access_token=ya29.Il-4BzyCswxPPlujcXMgmAXbPdpVBFgE-ULWyXEiAdF_gwCoh3erV3JZKFAV-3DRsbDq-JFdPM0-BZezsOzDAJN959S_v58ko3jli2wGgERRFoXRXHX8VdD4MuLQaaSYUw HTTP/1.1');
     var http = new XMLHttpRequest();
     http.open("GET", url, true);
     http.onreadystatechange = function(){
@@ -41,10 +57,6 @@
 
   function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
-      //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    //  console.log('Name: ' + profile.getName());
-      //console.log('Image URL: ' + profile.getImageUrl());
-    //  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       id = profile.getId(); // this is where I get the id. trying to pass it through below to the rq. then need to parse that response
 }
 
