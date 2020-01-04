@@ -46,7 +46,7 @@
       console.log('Name: ' + profile.getName());
       console.log('Image URL: ' + profile.getImageUrl());
       console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-      window.id = profile.getId(); // this is where I get the id. trying to pass it through below to the rq. then need to parse that response
+      id = profile.getId(); // this is where I get the id. trying to pass it through below to the rq. then need to parse that response
 }
 
 console.log(id + "it's here...")
