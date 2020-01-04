@@ -30,7 +30,7 @@
     var http = new XMLHttpRequest();
 
     http.open("GET", url, true);
-  //  http.setRequestHeader(Authorization: Bearer [YOUR_ACCESS_TOKEN])
+   http.setRequestHeader(Authorization: Bearer 'a29.Il-4BzyCswxPPlujcXMgmAXbPdpVBFgE-ULWyXEiAdF_gwCoh3erV3JZKFAV-3DRsbDq-JFdPM0-BZezsOzDAJN959S_v58ko3jli2wGgERRFoXRXHX8VdD4MuLQaaSYUw')
     http.onreadystatechange = function()
     {
       if(http.readyState == 4 && http.status == 200) {
@@ -49,8 +49,6 @@
       console.log('Image URL: ' + profile.getImageUrl());
       console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       id = profile.getId(); // this is where I get the id. trying to pass it through below to the rq. then need to parse that response
-      console.log(profile);
-      console.log(profile.getAccessToken());
 }
 
   update.addEventListener('click', updateNum);
